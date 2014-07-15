@@ -17,7 +17,7 @@ namespace LiveSplit.UI.Components
 
         public string Description
         {
-            get { return ""; }
+            get { return "Displays the current sum of best segments."; }
         }
 
         public ComponentCategory Category
