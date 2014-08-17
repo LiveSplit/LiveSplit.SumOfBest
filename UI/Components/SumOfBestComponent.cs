@@ -16,10 +16,12 @@ namespace LiveSplit.UI.Components
     {
         protected InfoTimeComponent InternalComponent { get; set; }
         public SumOfBestSettings Settings { get; set; }
+        protected LiveSplitState CurrentState { get; set; }
 
         public GraphicsCache Cache { get; set; }
 
         protected IRun PreviousRun { get; set; }
+        protected bool PreviousCalculationMode { get; set; }
 
         public float PaddingTop { get { return InternalComponent.PaddingTop; } }
         public float PaddingLeft { get { return InternalComponent.PaddingLeft; } }
@@ -38,11 +40,27 @@ namespace LiveSplit.UI.Components
         public SumOfBestComponent(LiveSplitState state)
         {
             Formatter = new RegularSumOfBestTimeFormatter();
-            InternalComponent = new InfoTimeComponent(null, null, Formatter);
+            InternalComponent = new InfoTimeComponent(null, null, Formatter)
+            {
+                InformationName = "Sum of Best Segments",
+                LongestString = "Sum of Best Segments",
+                AlternateNameText = new String[]
+                {
+                    "Sum of Best",
+                    "SoB"
+                }
+            };
             Settings = new SumOfBestSettings();
             state.OnSplit += state_OnSplit;
             state.OnUndoSplit += state_OnUndoSplit;
+            state.OnReset += state_OnReset;
+            CurrentState = state;
             Cache = new GraphicsCache();
+        }
+
+        void state_OnReset(object sender, TimerPhase e)
+        {
+            UpdateSumOfBestValue((LiveSplitState)sender);
         }
 
         void state_OnUndoSplit(object sender, EventArgs e)
@@ -57,17 +75,18 @@ namespace LiveSplit.UI.Components
 
         void UpdateSumOfBestValue(LiveSplitState state)
         {
-            SumOfBestValue = SumOfBest.CalculateSumOfBest(state.Run);
+            SumOfBestValue = SumOfBest.CalculateSumOfBest(state.Run, state.Settings.SimpleSumOfBest);
             PreviousRun = (IRun)(state.Run.Clone());
+            PreviousCalculationMode = state.Settings.SimpleSumOfBest;
         }
 
         private bool CheckIfRunChanged(LiveSplitState state)
         {
             if (PreviousRun == null || PreviousRun.Count != state.Run.Count)
-            {
-                PreviousRun = (IRun)(state.Run.Clone());
                 return true;
-            }
+
+            if (PreviousCalculationMode != state.Settings.SimpleSumOfBest)
+                return true;
 
             foreach (var segment in state.Run)
             {
@@ -112,8 +131,6 @@ namespace LiveSplit.UI.Components
 
             Formatter.Accuracy = Settings.Accuracy;
 
-            InternalComponent.NameLabel.Text = "Sum of Best Segments";
-            InternalComponent.LongestString = "Sum of Best Segments";
             InternalComponent.NameLabel.ForeColor = Settings.OverrideTextColor ? Settings.TextColor : state.LayoutSettings.TextColor;
             InternalComponent.ValueLabel.ForeColor = Settings.OverrideTimeColor ? Settings.TimeColor : state.LayoutSettings.TextColor;
 
@@ -130,8 +147,6 @@ namespace LiveSplit.UI.Components
 
             Formatter.Accuracy = Settings.Accuracy;
 
-            InternalComponent.NameLabel.Text = "Sum of Best Segments";
-            InternalComponent.LongestString = "Sum of Best Segments";
             InternalComponent.NameLabel.ForeColor = Settings.OverrideTextColor ? Settings.TextColor : state.LayoutSettings.TextColor;
             InternalComponent.ValueLabel.ForeColor = Settings.OverrideTimeColor ? Settings.TimeColor : state.LayoutSettings.TextColor;
 
@@ -201,6 +216,13 @@ namespace LiveSplit.UI.Components
             {
                 invalidator.Invalidate(0, 0, width, height);
             }
+        }
+
+        public void Dispose()
+        {
+            CurrentState.OnSplit -= state_OnSplit;
+            CurrentState.OnUndoSplit -= state_OnUndoSplit;
+            CurrentState.OnReset -= state_OnReset;
         }
     }
 }
