@@ -20,8 +20,9 @@ namespace LiveSplit.UI.Components
 
         public GraphicsCache Cache { get; set; }
 
-        protected IRun PreviousRun { get; set; }
+        //protected IRun PreviousRun { get; set; }
         protected bool PreviousCalculationMode { get; set; }
+        protected TimingMethod PreviousTimingMethod { get; set; }
 
         public float PaddingTop { get { return InternalComponent.PaddingTop; } }
         public float PaddingLeft { get { return InternalComponent.PaddingLeft; } }
@@ -55,7 +56,14 @@ namespace LiveSplit.UI.Components
             state.OnUndoSplit += state_OnUndoSplit;
             state.OnReset += state_OnReset;
             CurrentState = state;
+            CurrentState.RunManuallyModified += CurrentState_RunModified;
             Cache = new GraphicsCache();
+            UpdateSumOfBestValue(state);
+        }
+
+        void CurrentState_RunModified(object sender, EventArgs e)
+        {
+            UpdateSumOfBestValue(CurrentState);
         }
 
         void state_OnReset(object sender, TimerPhase e)
@@ -75,20 +83,24 @@ namespace LiveSplit.UI.Components
 
         void UpdateSumOfBestValue(LiveSplitState state)
         {
-            SumOfBestValue = SumOfBest.CalculateSumOfBest(state.Run, state.Settings.SimpleSumOfBest);
-            PreviousRun = (IRun)(state.Run.Clone());
+            SumOfBestValue = SumOfBest.CalculateSumOfBest(state.Run, state.Settings.SimpleSumOfBest, state.CurrentTimingMethod);
+            //PreviousRun = (IRun)(state.Run.Clone());
             PreviousCalculationMode = state.Settings.SimpleSumOfBest;
+            PreviousTimingMethod = state.CurrentTimingMethod;
         }
 
         private bool CheckIfRunChanged(LiveSplitState state)
         {
-            if (PreviousRun == null || PreviousRun.Count != state.Run.Count)
-                return true;
+            /*if (PreviousRun == null || PreviousRun.Count != state.Run.Count)
+                return true;*/
 
             if (PreviousCalculationMode != state.Settings.SimpleSumOfBest)
                 return true;
 
-            foreach (var segment in state.Run)
+            if (PreviousTimingMethod != state.CurrentTimingMethod)
+                return true;
+
+            /*foreach (var segment in state.Run)
             {
                 var prevSegment = PreviousRun[state.Run.IndexOf(segment)];
                 if (prevSegment.PersonalBestSplitTime.RealTime != segment.PersonalBestSplitTime.RealTime ||
@@ -96,7 +108,7 @@ namespace LiveSplit.UI.Components
                     prevSegment.PersonalBestSplitTime.GameTime != segment.PersonalBestSplitTime.GameTime ||
                     prevSegment.BestSegmentTime.GameTime != segment.BestSegmentTime.GameTime)
                     return true;
-            }
+            }*/
             return false;
         }
 
