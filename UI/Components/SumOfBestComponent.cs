@@ -84,31 +84,18 @@ namespace LiveSplit.UI.Components
         void UpdateSumOfBestValue(LiveSplitState state)
         {
             SumOfBestValue = SumOfBest.CalculateSumOfBest(state.Run, state.Settings.SimpleSumOfBest, state.CurrentTimingMethod);
-            //PreviousRun = (IRun)(state.Run.Clone());
             PreviousCalculationMode = state.Settings.SimpleSumOfBest;
             PreviousTimingMethod = state.CurrentTimingMethod;
         }
 
         private bool CheckIfRunChanged(LiveSplitState state)
         {
-            /*if (PreviousRun == null || PreviousRun.Count != state.Run.Count)
-                return true;*/
-
             if (PreviousCalculationMode != state.Settings.SimpleSumOfBest)
                 return true;
 
             if (PreviousTimingMethod != state.CurrentTimingMethod)
                 return true;
 
-            /*foreach (var segment in state.Run)
-            {
-                var prevSegment = PreviousRun[state.Run.IndexOf(segment)];
-                if (prevSegment.PersonalBestSplitTime.RealTime != segment.PersonalBestSplitTime.RealTime ||
-                    prevSegment.BestSegmentTime.RealTime != segment.BestSegmentTime.RealTime ||
-                    prevSegment.PersonalBestSplitTime.GameTime != segment.PersonalBestSplitTime.GameTime ||
-                    prevSegment.BestSegmentTime.GameTime != segment.BestSegmentTime.GameTime)
-                    return true;
-            }*/
             return false;
         }
 
