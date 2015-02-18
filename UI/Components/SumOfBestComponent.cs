@@ -18,8 +18,6 @@ namespace LiveSplit.UI.Components
         public SumOfBestSettings Settings { get; set; }
         protected LiveSplitState CurrentState { get; set; }
 
-        public GraphicsCache Cache { get; set; }
-
         //protected IRun PreviousRun { get; set; }
         protected bool PreviousCalculationMode { get; set; }
         protected TimingMethod PreviousTimingMethod { get; set; }
@@ -57,7 +55,6 @@ namespace LiveSplit.UI.Components
             state.OnReset += state_OnReset;
             CurrentState = state;
             CurrentState.RunManuallyModified += CurrentState_RunModified;
-            Cache = new GraphicsCache();
             UpdateSumOfBestValue(state);
         }
 
@@ -202,13 +199,7 @@ namespace LiveSplit.UI.Components
 
             InternalComponent.TimeValue = SumOfBestValue;
 
-            Cache.Restart();
-            Cache["TimeValue"] = InternalComponent.ValueLabel.Text;
-
-            if (invalidator != null && Cache.HasChanged)
-            {
-                invalidator.Invalidate(0, 0, width, height);
-            }
+            InternalComponent.Update(invalidator, state, width, height, mode);
         }
 
         public void Dispose()
