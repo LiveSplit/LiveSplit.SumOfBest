@@ -55,16 +55,7 @@ namespace LiveSplit.UI.Components
             btnTimeColor.DataBindings.Add("BackColor", this, "TimeColor", false, DataSourceUpdateMode.OnPropertyChanged);
             btnColor1.DataBindings.Add("BackColor", this, "BackgroundColor", false, DataSourceUpdateMode.OnPropertyChanged);
             btnColor2.DataBindings.Add("BackColor", this, "BackgroundColor2", false, DataSourceUpdateMode.OnPropertyChanged);
-
-            cmbGradientType.SelectedIndexChanged += cmbGradientType_SelectedIndexChanged;
             cmbGradientType.DataBindings.Add("SelectedItem", this, "GradientString", false, DataSourceUpdateMode.OnPropertyChanged);
-
-            this.Load += SumOfBestSettings_Load;
-
-            rdoSeconds.CheckedChanged += rdoSeconds_CheckedChanged;
-            rdoHundredths.CheckedChanged += rdoHundredths_CheckedChanged;
-            chkOverrideTextColor.CheckedChanged += chkOverrideTextColor_CheckedChanged;
-            chkOverrideTimeColor.CheckedChanged += chkOverrideTimeColor_CheckedChanged;
         }
 
         void chkOverrideTimeColor_CheckedChanged(object sender, EventArgs e)
