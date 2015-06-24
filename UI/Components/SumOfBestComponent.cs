@@ -39,10 +39,8 @@ namespace LiveSplit.UI.Components
         public SumOfBestComponent(LiveSplitState state)
         {
             Formatter = new RegularSumOfBestTimeFormatter();
-            InternalComponent = new InfoTimeComponent(null, null, Formatter)
+            InternalComponent = new InfoTimeComponent("Sum of Best Segments", null, Formatter)
             {
-                InformationName = "Sum of Best Segments",
-                LongestString = "Sum of Best Segments",
                 AlternateNameText = new String[]
                 {
                     "Sum of Best",
