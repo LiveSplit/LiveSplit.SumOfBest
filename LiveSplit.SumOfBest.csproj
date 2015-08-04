@@ -84,6 +84,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="UI\Components\SumOfBestSettings.ja-JP.resx">
+      <DependentUpon>SumOfBestSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Components\SumOfBestSettings.resx">
       <DependentUpon>SumOfBestSettings.cs</DependentUpon>
     </EmbeddedResource>
