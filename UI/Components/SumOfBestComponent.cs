@@ -74,7 +74,7 @@ namespace LiveSplit.UI.Components
 
         void UpdateSumOfBestValue(LiveSplitState state)
         {
-            SumOfBestValue = SumOfBest.CalculateSumOfBest(state.Run, state.Settings.SimpleSumOfBest, state.CurrentTimingMethod);
+            SumOfBestValue = SumOfBest.CalculateSumOfBest(state.Run, state.Settings.SimpleSumOfBest, true, state.CurrentTimingMethod);
             PreviousCalculationMode = state.Settings.SimpleSumOfBest;
             PreviousTimingMethod = state.CurrentTimingMethod;
         }
