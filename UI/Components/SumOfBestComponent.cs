@@ -14,30 +14,26 @@ namespace LiveSplit.UI.Components
         public SumOfBestSettings Settings { get; set; }
         protected LiveSplitState CurrentState { get; set; }
 
-        //protected IRun PreviousRun { get; set; }
         protected bool PreviousCalculationMode { get; set; }
         protected TimingMethod PreviousTimingMethod { get; set; }
 
-        public float PaddingTop { get { return InternalComponent.PaddingTop; } }
-        public float PaddingLeft { get { return InternalComponent.PaddingLeft; } }
-        public float PaddingBottom { get { return InternalComponent.PaddingBottom; } }
-        public float PaddingRight { get { return InternalComponent.PaddingRight; } }
+        public float PaddingTop => InternalComponent.PaddingTop;
+        public float PaddingLeft => InternalComponent.PaddingLeft;
+        public float PaddingBottom => InternalComponent.PaddingBottom;
+        public float PaddingRight => InternalComponent.PaddingRight;
 
         public TimeSpan? SumOfBestValue { get; set; }
 
         private RegularSumOfBestTimeFormatter Formatter { get; set; }
 
-        public IDictionary<string, Action> ContextMenuControls
-        {
-            get { return null; }
-        }
+        public IDictionary<string, Action> ContextMenuControls => null;
         
         public SumOfBestComponent(LiveSplitState state)
         {
             Formatter = new RegularSumOfBestTimeFormatter();
             InternalComponent = new InfoTimeComponent("Sum of Best Segments", null, Formatter)
             {
-                AlternateNameText = new String[]
+                AlternateNameText = new string[]
                 {
                     "Sum of Best",
                     "SoB"
@@ -143,31 +139,15 @@ namespace LiveSplit.UI.Components
             InternalComponent.DrawHorizontal(g, state, height, clipRegion);
         }
 
-        public float VerticalHeight
-        {
-            get { return InternalComponent.VerticalHeight; }
-        }
+        public float VerticalHeight => InternalComponent.VerticalHeight;
 
-        public float MinimumWidth
-        {
-            get { return InternalComponent.MinimumWidth; }
-        }
+        public float MinimumWidth => InternalComponent.MinimumWidth;
 
-        public float HorizontalWidth
-        {
-            get { return InternalComponent.HorizontalWidth; }
-        }
+        public float HorizontalWidth => InternalComponent.HorizontalWidth;
 
-        public float MinimumHeight
-        {
-            get { return InternalComponent.MinimumHeight; }
-        }
+        public float MinimumHeight => InternalComponent.MinimumHeight;
 
-        public string ComponentName
-        {
-            get { return "Sum of Best"; }
-        }
-
+        public string ComponentName => "Sum of Best";
 
         public Control GetSettingsControl(LayoutMode mode)
         {
@@ -203,9 +183,6 @@ namespace LiveSplit.UI.Components
             CurrentState.OnReset -= state_OnReset;
         }
 
-        public int GetSettingsHashCode()
-        {
-            return Settings.GetSettingsHashCode();
-        }
+        public int GetSettingsHashCode() => Settings.GetSettingsHashCode();
     }
 }
