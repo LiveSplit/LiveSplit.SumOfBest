@@ -1,5 +1,8 @@
 ﻿using LiveSplit.Model;
+using LiveSplit.UI.Components;
 using System;
+
+[assembly: ComponentFactory(typeof(SumOfBestFactory))]
 
 namespace LiveSplit.UI.Components
 {
@@ -9,7 +12,7 @@ namespace LiveSplit.UI.Components
 
         public string Description => "Displays the current sum of best segments.";
 
-        public ComponentCategory Category => ComponentCategory.Information; 
+        public ComponentCategory Category => ComponentCategory.Information;
 
         public IComponent Create(LiveSplitState state) => new SumOfBestComponent(state);
 
