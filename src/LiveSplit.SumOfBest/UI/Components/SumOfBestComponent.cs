@@ -24,13 +24,13 @@ namespace LiveSplit.UI.Components
 
         public TimeSpan? SumOfBestValue { get; set; }
 
-        private RegularSumOfBestTimeFormatter Formatter { get; set; }
+        private SplitTimeFormatter Formatter { get; set; }
 
         public IDictionary<string, Action> ContextMenuControls => null;
         
         public SumOfBestComponent(LiveSplitState state)
         {
-            Formatter = new RegularSumOfBestTimeFormatter();
+            Formatter = new SplitTimeFormatter();
             InternalComponent = new InfoTimeComponent("Sum of Best Segments", null, Formatter)
             {
                 AlternateNameText = new string[]
