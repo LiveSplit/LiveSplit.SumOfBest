@@ -94,6 +94,11 @@ namespace LiveSplit.UI.Components
             UpdateAccuracy();
         }
 
+        void rdoTenths_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateAccuracy();
+        }
+
         void rdoSeconds_CheckedChanged(object sender, EventArgs e)
         {
             UpdateAccuracy();
@@ -105,8 +110,10 @@ namespace LiveSplit.UI.Components
                 Accuracy = TimeAccuracy.Seconds;
             else if (rdoTenths.Checked)
                 Accuracy = TimeAccuracy.Tenths;
-            else
+            else if (rdoHundredths.Checked)
                 Accuracy = TimeAccuracy.Hundredths;
+            else
+                Accuracy = TimeAccuracy.Milliseconds;
         }
 
         public void SetSettings(XmlNode node)
