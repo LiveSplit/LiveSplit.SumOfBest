@@ -184,5 +184,8 @@ public class SumOfBestComponent : IComponent
         CurrentState.OnReset -= state_OnReset;
     }
 
-    public int GetSettingsHashCode() => Settings.GetSettingsHashCode();
+    public int GetSettingsHashCode()
+    {
+        return Settings.GetSettingsHashCode();
+    }
 }
