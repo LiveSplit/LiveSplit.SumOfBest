@@ -49,27 +49,27 @@ public class SumOfBestComponent : IComponent
         UpdateSumOfBestValue(state);
     }
 
-    void CurrentState_RunModified(object sender, EventArgs e)
+    private void CurrentState_RunModified(object sender, EventArgs e)
     {
         UpdateSumOfBestValue(CurrentState);
     }
 
-    void state_OnReset(object sender, TimerPhase e)
+    private void state_OnReset(object sender, TimerPhase e)
     {
         UpdateSumOfBestValue((LiveSplitState)sender);
     }
 
-    void state_OnUndoSplit(object sender, EventArgs e)
+    private void state_OnUndoSplit(object sender, EventArgs e)
     {
         UpdateSumOfBestValue((LiveSplitState)sender);
     }
 
-    void state_OnSplit(object sender, EventArgs e)
+    private void state_OnSplit(object sender, EventArgs e)
     {
         UpdateSumOfBestValue((LiveSplitState)sender);
     }
 
-    void UpdateSumOfBestValue(LiveSplitState state)
+    private void UpdateSumOfBestValue(LiveSplitState state)
     {
         SumOfBestValue = SumOfBest.CalculateSumOfBest(state.Run, state.Settings.SimpleSumOfBest, true, state.CurrentTimingMethod);
         PreviousCalculationMode = state.Settings.SimpleSumOfBest;
