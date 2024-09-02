@@ -79,10 +79,14 @@ public class SumOfBestComponent : IComponent
     private bool CheckIfRunChanged(LiveSplitState state)
     {
         if (PreviousCalculationMode != state.Settings.SimpleSumOfBest)
+        {
             return true;
+        }
 
         if (PreviousTimingMethod != state.CurrentTimingMethod)
+        {
             return true;
+        }
 
         return false;
     }
@@ -90,8 +94,8 @@ public class SumOfBestComponent : IComponent
     private void DrawBackground(Graphics g, LiveSplitState state, float width, float height)
     {
         if (Settings.BackgroundColor.A > 0
-            || Settings.BackgroundGradient != GradientType.Plain
-            && Settings.BackgroundColor2.A > 0)
+            || (Settings.BackgroundGradient != GradientType.Plain
+            && Settings.BackgroundColor2.A > 0))
         {
             var gradientBrush = new LinearGradientBrush(
                         new PointF(0, 0),
@@ -161,7 +165,6 @@ public class SumOfBestComponent : IComponent
         Settings.SetSettings(settings);
     }
 
-
     public System.Xml.XmlNode GetSettings(System.Xml.XmlDocument document)
     {
         return Settings.GetSettings(document);
@@ -170,7 +173,9 @@ public class SumOfBestComponent : IComponent
     public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
     {
         if (CheckIfRunChanged(state))
+        {
             UpdateSumOfBestValue(state);
+        }
 
         InternalComponent.TimeValue = SumOfBestValue;
 

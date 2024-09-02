@@ -108,13 +108,21 @@ public partial class SumOfBestSettings : UserControl
     private void UpdateAccuracy()
     {
         if (rdoSeconds.Checked)
+        {
             Accuracy = TimeAccuracy.Seconds;
+        }
         else if (rdoTenths.Checked)
+        {
             Accuracy = TimeAccuracy.Tenths;
+        }
         else if (rdoHundredths.Checked)
+        {
             Accuracy = TimeAccuracy.Hundredths;
+        }
         else
+        {
             Accuracy = TimeAccuracy.Milliseconds;
+        }
     }
 
     public void SetSettings(XmlNode node)
