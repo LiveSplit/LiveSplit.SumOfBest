@@ -1,27 +1,27 @@
-﻿using LiveSplit.Model;
+﻿using System;
+
+using LiveSplit.Model;
 using LiveSplit.UI.Components;
-using System;
 
 [assembly: ComponentFactory(typeof(SumOfBestFactory))]
 
-namespace LiveSplit.UI.Components
+namespace LiveSplit.UI.Components;
+
+public class SumOfBestFactory : IComponentFactory
 {
-    public class SumOfBestFactory : IComponentFactory
-    {
-        public string ComponentName => "Sum of Best";
+    public string ComponentName => "Sum of Best";
 
-        public string Description => "Displays the current sum of best segments.";
+    public string Description => "Displays the current sum of best segments.";
 
-        public ComponentCategory Category => ComponentCategory.Information;
+    public ComponentCategory Category => ComponentCategory.Information;
 
-        public IComponent Create(LiveSplitState state) => new SumOfBestComponent(state);
+    public IComponent Create(LiveSplitState state) => new SumOfBestComponent(state);
 
-        public string UpdateName => ComponentName;
+    public string UpdateName => ComponentName;
 
-        public string XMLURL => "http://livesplit.org/update/Components/update.LiveSplit.SumOfBest.xml";
+    public string XMLURL => "http://livesplit.org/update/Components/update.LiveSplit.SumOfBest.xml";
 
-        public string UpdateURL => "http://livesplit.org/update/";
+    public string UpdateURL => "http://livesplit.org/update/";
 
-        public Version Version => Version.Parse("1.8.29");
-    }
+    public Version Version => Version.Parse("1.8.29");
 }
