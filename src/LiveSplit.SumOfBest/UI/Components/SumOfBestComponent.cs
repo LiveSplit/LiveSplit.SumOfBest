@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -9,6 +9,7 @@ using LiveSplit.TimeFormatters;
 
 namespace LiveSplit.UI.Components;
 
+[GlobalFontConsumer(GlobalFont.TimesFont | GlobalFont.TextFont)]
 public class SumOfBestComponent : IComponent
 {
     protected InfoTimeComponent InternalComponent { get; set; }
