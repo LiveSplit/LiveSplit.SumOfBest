@@ -1,9 +1,8 @@
-﻿using System;
+﻿using LiveSplit.TimeFormatters;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Xml;
-
-using LiveSplit.TimeFormatters;
 
 namespace LiveSplit.UI.Components;
 
@@ -107,22 +106,11 @@ public partial class SumOfBestSettings : UserControl
 
     private void UpdateAccuracy()
     {
-        if (rdoSeconds.Checked)
-        {
-            Accuracy = TimeAccuracy.Seconds;
-        }
-        else if (rdoTenths.Checked)
-        {
-            Accuracy = TimeAccuracy.Tenths;
-        }
-        else if (rdoHundredths.Checked)
-        {
-            Accuracy = TimeAccuracy.Hundredths;
-        }
-        else
-        {
-            Accuracy = TimeAccuracy.Milliseconds;
-        }
+        Accuracy =
+            rdoSeconds.Checked ? TimeAccuracy.Seconds
+            : rdoTenths.Checked ? TimeAccuracy.Tenths
+            : rdoHundredths.Checked ? TimeAccuracy.Hundredths
+            : TimeAccuracy.Milliseconds;
     }
 
     public void SetSettings(XmlNode node)
