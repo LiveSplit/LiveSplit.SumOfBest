@@ -1,11 +1,10 @@
+﻿using LiveSplit.Model;
+using LiveSplit.TimeFormatters;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-
-using LiveSplit.Model;
-using LiveSplit.TimeFormatters;
 
 namespace LiveSplit.UI.Components;
 
@@ -35,11 +34,11 @@ public class SumOfBestComponent : IComponent
         Formatter = new SplitTimeFormatter();
         InternalComponent = new InfoTimeComponent("Sum of Best Segments", null, Formatter)
         {
-            AlternateNameText = new string[]
-            {
+            AlternateNameText =
+            [
                 "Sum of Best",
                 "SoB"
-            }
+            ]
         };
         Settings = new SumOfBestSettings();
         state.OnSplit += state_OnSplit;
@@ -99,14 +98,10 @@ public class SumOfBestComponent : IComponent
             && Settings.BackgroundColor2.A > 0))
         {
             var gradientBrush = new LinearGradientBrush(
-                        new PointF(0, 0),
-                        Settings.BackgroundGradient == GradientType.Horizontal
-                        ? new PointF(width, 0)
-                        : new PointF(0, height),
-                        Settings.BackgroundColor,
-                        Settings.BackgroundGradient == GradientType.Plain
-                        ? Settings.BackgroundColor
-                        : Settings.BackgroundColor2);
+                new PointF(0, 0),
+                Settings.BackgroundGradient == GradientType.Horizontal ? new PointF(width, 0) : new PointF(0, height),
+                Settings.BackgroundColor,
+                Settings.BackgroundGradient == GradientType.Plain ? Settings.BackgroundColor : Settings.BackgroundColor2);
             g.FillRectangle(gradientBrush, 0, 0, width, height);
         }
     }
